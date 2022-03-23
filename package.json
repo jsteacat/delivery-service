@@ -1,0 +1,39 @@
+{
+  "name": "delivery-service",
+  "version": "1.0.0",
+  "description": "Delivery service app. ExpressJS, MongoDB, PassportJS, Socket.io",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsteacat/delivery-service.git"
+  },
+  "keywords": [
+    "express",
+    "mongo",
+    "passport",
+    "socket"
+  ],
+  "author": "Stepan Kormilin <jsteacat@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jsteacat/delivery-service/issues"
+  },
+  "homepage": "https://github.com/jsteacat/delivery-service#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "express-session": "^1.17.2",
+    "mongoose": "^6.2.7",
+    "passport": "^0.5.2",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.0",
+    "nodemon": "^2.0.15"
+  }
+}
