@@ -9,6 +9,7 @@ require('./middleware/passport')(passport);
 
 const userApiRouter = require('./routes/api/user');
 const adApiRouter = require('./routes/api/advertisement');
+const chatApiRouter = require('./routes/api/chat');
 
 const app = express();
 const server = require('http').createServer(app);
@@ -36,6 +37,7 @@ app.use(passport.session());
 // Router
 app.use('/api', userApiRouter);
 // app.use('/api/advertisements', adApiRouter);
+app.use('/api/chat', chatApiRouter);
 
 (async () => {
   try {

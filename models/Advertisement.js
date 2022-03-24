@@ -9,7 +9,7 @@ const adSchema = new Schema({
   images: [String],
   userId: {
     type: Schema.Types.ObjectId,
-    ref : 'UserModel',
+    ref : 'User',
     required: true
   },
   createdAt: {
@@ -27,4 +27,4 @@ const adSchema = new Schema({
   }
 });
 
-module.exports = model('AdModel', adSchema);
+module.exports = model('Advertisement', adSchema);

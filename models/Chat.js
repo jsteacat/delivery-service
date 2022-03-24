@@ -2,7 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const MessageSchema = new Schema({
   author: {
-    type: ObjectId,
+    type: Schema.Types.ObjectId,
+    ref : 'User',
     required: true
   },
   sentAt: {
@@ -18,7 +19,18 @@ const MessageSchema = new Schema({
 
 const ChatSchema = new Schema({
   users: {
-    type: [ObjectId, ObjectId],
+    type: [
+      {
+        type: Schema.Types.ObjectId,
+        ref : 'User',
+        required: true
+      },
+      {
+        type: Schema.Types.ObjectId,
+        ref : 'User',
+        required: true
+      }
+    ],
     required: true
   },
   createdAt: {
@@ -28,4 +40,4 @@ const ChatSchema = new Schema({
   messages: [MessageSchema]
 });
 
-module.exports = model('ChatModel', ChatSchema);
+module.exports = model('Chat', ChatSchema);

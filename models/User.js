@@ -32,4 +32,4 @@ userSchema.statics.findUserById = async function (id) {
   return user || null;
 };
 
-module.exports = model('UserModel', userSchema);
+module.exports = model('User', userSchema);
