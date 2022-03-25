@@ -1,16 +1,13 @@
-const router = require('express').Router();
+const userService = require('./user.service');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-
-// User model
-const User = require('../../models/User');
 
 const decoratedUser = (user) => {
   const { _id, email, name, contactPhone } = user;
   return { id: _id, name, email, contactPhone };
 };
 
-router.get('/me', (req, res) => {
+const getProfile = (req, res) => {
   if (req.isAuthenticated()) {
     return res.status(200).json({
       status: 'ok',
@@ -22,9 +19,9 @@ router.get('/me', (req, res) => {
       error: 'Unauthorized'
     })
   }
-});
+};
 
-router.post('/signup', async (req, res) => {
+const register = async (req, res) => {
   const { email, password, name, contactPhone } = req.body;
 
   // Check empty fields
@@ -36,7 +33,7 @@ router.post('/signup', async (req, res) => {
   }
 
   try {
-    const existingUser = await User.findUserByEmail(email);
+    const existingUser = await userService.getUserByEmail(email);
 
     if (existingUser) {
       // User exists
@@ -52,7 +49,7 @@ router.post('/signup', async (req, res) => {
         bcrypt.hash(password, salt, async (err, hash) => {
           if (err) throw err;
           newUserData.passwordHash = hash;
-          const user = await User.createUser(newUserData);
+          const user = await userService.createUser(newUserData);
           res.status(201).json({
             status: 'ok',
             data: decoratedUser(user)
@@ -66,9 +63,9 @@ router.post('/signup', async (req, res) => {
       error
     })
   }
-});
+};
 
-router.post('/signin', async (req, res) => {
+const login = async (req, res) => {
   try {
     passport.authenticate('local', (error, user, data) => {
       if (error) {
@@ -98,6 +95,10 @@ router.post('/signin', async (req, res) => {
       error
     })
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  getProfile,
+  register,
+  login
+};

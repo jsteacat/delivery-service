@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const MessageSchema = new Schema({
+const messageSchema = new Schema({
   author: {
     type: Schema.Types.ObjectId,
     ref : 'User',
@@ -12,12 +12,13 @@ const MessageSchema = new Schema({
   },
   text: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
   readAt: Date
 });
 
-const ChatSchema = new Schema({
+const chatSchema = new Schema({
   users: {
     type: [
       {
@@ -37,7 +38,7 @@ const ChatSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  messages: [MessageSchema]
+  messages: [messageSchema]
 });
 
-module.exports = model('Chat', ChatSchema);
+module.exports = model('Chat', chatSchema);

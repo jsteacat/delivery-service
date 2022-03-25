@@ -3,9 +3,13 @@ const { Schema, model } = require('mongoose');
 const adSchema = new Schema({
   shortText: {
     type: String,
-    required: true
+    required: true,
+    trim: true
   },
-  description: String,
+  description: {
+    type: String,
+    trim: true
+  },
   images: [String],
   userId: {
     type: Schema.Types.ObjectId,
