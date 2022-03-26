@@ -8,6 +8,7 @@ const adSchema = new Schema({
   },
   description: {
     type: String,
+    default: '',
     trim: true
   },
   images: [String],
@@ -18,11 +19,11 @@ const adSchema = new Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: (Date.now)
   },
   updatedAt: {
     type: Date,
-    default: Date.now
+    default: (Date.now)
   },
   tags: [String],
   isDeleted: {

@@ -10,7 +10,7 @@ module.exports = function (passport) {
       User.findOne({ email })
         .then(user => {
           if (!user) {
-            return done(null, false, { message: 'Такой Email не зарегистрирован' });
+            return done(null, false, { message: 'This email is not registered' });
           }
 
           // Password
@@ -20,7 +20,7 @@ module.exports = function (passport) {
             if (isMatch) {
               return done(null, user);
             } else {
-              return done(null, false, { message: 'Неверный пароль' });
+              return done(null, false, { message: 'Invalid password' });
             }
           });
         })

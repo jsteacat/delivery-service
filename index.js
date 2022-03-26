@@ -10,7 +10,7 @@ const config = require('./config');
 require('./middleware/passport')(passport);
 
 const userApiRouter = require('./user/user.route');
-// const adApiRouter = require('./routes/api/advertisement');
+const adApiRouter = require('./advertisement/advertisement.route');
 const chatApiRouter = require('./chat/chat.route'); // for testing DB!!!
 
 const app = express();
@@ -21,6 +21,9 @@ const db = config.mongoURI;
 // Bodyparser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Static directory
+app.use('/public', express.static(__dirname + '/public'));
 
 // Express Session
 app.use(session({
@@ -41,7 +44,7 @@ app.use(socketModule(socketIo));
 
 // Router
 app.use('/api', userApiRouter);
-// app.use('/api/advertisements', adApiRouter);
+app.use('/api/advertisements', adApiRouter);
 app.use('/api/chat', chatApiRouter); // for testing DB!!!
 
 (async () => {
