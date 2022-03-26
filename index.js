@@ -1,18 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const io = require('socket.io');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+const socketModule = require('./socket');
 const config = require('./config');
 
 require('./middleware/passport')(passport);
 
 const userApiRouter = require('./user/user.route');
 // const adApiRouter = require('./routes/api/advertisement');
-// const chatApiRouter = require('./routes/api/chat');
+const chatApiRouter = require('./chat/chat.route'); // for testing DB!!!
 
 const app = express();
 const server = require('http').createServer(app);
+const socketIo = io(server);
 const db = config.mongoURI;
 
 // Bodyparser
@@ -34,10 +37,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(socketModule(socketIo));
+
 // Router
 app.use('/api', userApiRouter);
 // app.use('/api/advertisements', adApiRouter);
-// app.use('/api/chat', chatApiRouter);
+app.use('/api/chat', chatApiRouter); // for testing DB!!!
 
 (async () => {
   try {
