@@ -1,7 +1,6 @@
 const chatController = require('./chat/chat.controller');
 
 module.exports = (io) => (req, res, next) => {
-  console.log('Socket', req);
   io.on('connection', (socket) => {
     console.log('Socket connection!');
     const notify = async (chatId, message) => {
